@@ -1,0 +1,66 @@
+{% include 'includes/header.html' %}
+<body class="app ">
+    <div id="spinner"></div>
+    <div id="app" class="page">
+        <div class="main-wrapper page-main" >
+            <div class="app-content">
+                <div class="section">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="col-md-5 center-margin">
+
+                                        <form method="post" action="" name="recuperar_pwd" id="recuperar_pwd" >
+                                            <div class="content-box wow bounceInDown modal-content" style="background-color: inherit; padding-left:50px;padding-right: 50px; padding-bottom: 50px;">
+                            
+                                                <div class="content-box-wrapper text-center" style="margin-bottom:40px;">
+                                                    <h2>Recuperar Contraseña</h2>
+                                                  </div>
+                                                 
+                                                    <div class="form-group">
+                                                       <label for="correo">Ingresar correo:</label>
+                                                        <div class="input-group">
+                                                          <span class="input-group-addon bg-blue">
+                                                                <i class="glyph-icon icon-user"></i>
+                                                            </span>
+                                                            <input type="email" class="form-control" required id="txtCorreo" name="txtCorreo" placeholder="correo@gmail.com">
+                                                          </div>
+                                                    </div>
+                                                 
+                                                    
+                                                    <button class="btn btn-success btn-block ">Enviar</button>
+                                                    <br>
+
+                                {% if mensaje == 1 %}
+                                    <span class="alert alert-success text-center  btn-block" > 
+                                     ! Mensaje enviado, Revisar Correo !
+                                    </span> 
+                                      <script type="text/javascript">
+                                        function redireccionar(){
+                                          window.location="../residuos";
+                                        } 
+                                        setTimeout ("redireccionar()", 3000);
+                                      </script>
+                                    {% elseif mensaje == 2 %}
+                                      <span class="alert alert-danger text-center  btn-block" > 
+                                     ! Error, No se pudo enviar el mensaje!
+                                    </span> 
+                                    {% elseif mensaje == 3 %}
+                                   <span class="alert alert-danger text-center  btn-block" > 
+                                     ! Error, El correo no existe!
+                                    </span>  
+                                {% endif %}
+                                                    </form>
+                                                    </div>
+                                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'includes/footer2.html' %}
+        </div>
+    </div>
+   {% include 'includes/footer.html' %}

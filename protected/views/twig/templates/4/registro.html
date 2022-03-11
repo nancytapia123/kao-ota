@@ -1,0 +1,847 @@
+{% include 'includes/header.html' %}
+
+<body class="app ">
+   <div id="spinner"></div>
+   <div id="app" class="page">
+      <div class="main-wrapper page-main">
+         {% include 'includes/header2.html' %}
+         {% include 'includes/nav.html' %}
+         <div class="app-content">
+            <div class="section">
+
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="card">
+                        <div class="card-header">
+                           <div class="pull-left">
+                              <h4>Registro</h4>
+                           </div>
+
+                           <div class="pull-right">
+
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <!-- SmartWizard html -->
+                           <div id="smartwizard2">
+
+                              <ul class="nav">
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#step-1">
+                                       <strong>1. Datos personales</strong>
+                                    </a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#step-2">
+                                       <strong>2. Domicilio</strong>
+                                    </a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#step-3">
+                                       <strong>3.Actividad económica</strong>
+                                    </a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#step-4">
+                                       <strong>4. Documentos</strong>
+                                    </a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#step-5">
+                                       <strong>5. Confirmación</strong>
+                                    </a>
+                                 </li>
+                              </ul>
+
+                              <form id="form" action="{{pathSite}}registro" method="POST" enctype="multipart/form-data">
+                                 <input type="hidden" name="path" id="path" value="{{pathSite}}">
+                                 <input type="hidden" name="idEditar" id="idEditar" value="{{usuarios.id}}">
+                                 <input type="hidden" name="foto" id="foto" >
+                                 
+                                 <!--Paso 1 Datos personales-->
+                                 <div class="tab-content">
+                                    <div id="step-1" class="tab-pane" role="tabpanel" aria-labelledby="step-1" style="height: 1180px;">
+                                       <h3>Datos personales</h3>
+                                       <div class="col-lg-9 col-xl-9 col-md-12 col-sm-9">
+
+                                          <!--Entrada nombres -->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Nombre(s)</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtNombre"
+                                                      id="username">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <!--Entrada apellido paterno y materno -->
+                                          <div class="form-group row ">
+                                             <div class="col-md-6">
+
+                                                <label class="col-md-12 col-form-label">Apellido paterno</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtApellidoPa"
+                                                      id="txtApellidoPa">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+
+                                             </div>
+
+                                             <div class="col-md-6">
+
+                                                <label class=" col-md-12 col-form-label">Apellido materno</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtApellidoMa"
+                                                      id="txtApellidoMa">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+
+                                          </div>
+
+                                          <!--Entrada fecha nacimiento y género-->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Fecha de nacimiento:</label>
+                                                <div class="col-md-12 bug">
+                                                   <input type="date" class="form-control pull-right"
+                                                      name="txtfecha_nacimiento" id="txtfecha_nacimiento">
+                                                   <class="fa fa-times-circle"></i>
+                                                      <i class="fa fa-check-circle"></i>
+                                                      <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+
+
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Género</label>
+                                                <div class="col-md-12 ">
+                                                   <select class="form-control select2 w-100" name="txtgenero"
+                                                      id="txtgenero">
+                                                      <option value="" selected="true">Seleccione su género
+                                                      </option>
+                                                      {% for key, value in genero %}
+                                                      <option value={{value.id}}>{{value.genero}}</option>
+                                                      {% endfor %}
+                                                   </select>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <!--Entrada pais de nacimiento -->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">País de nacimiento</label>
+                                                <div class="col-md-12">
+                                                   <select class="form-control" name="txtPais"  id="txtPais">
+                                                      {% for key, value in pais %}
+                                                      <option value={{value.id}} selected="true" >{{value.pais}}</option>
+                                                         {% endfor %}
+                                                   </select>
+                                                </div>
+                                             </div>
+
+
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Estado de nacimiento</label>
+                                                <div class="col-md-12">
+                                                   <select class="form-control" name="txtEstadoNac" id="txtEstadoNac">
+                                                      <option value="">Seleccione un estado</option>
+                                                   </select>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <!--Entrada telefono  -->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Teléfono celular</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="tel" name="txtTelefono"
+                                                      id="txtTelefono">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <h3>Asesoría personal</h3>
+                                          <br>
+                                          <br>
+                                          <h4>¿Alguien de nuestro equipo te ha ayudado/apoyado?</h4>
+                                          <br>
+                                          <!--Entrada asesor bt-->
+                                          <label class="custom-switch"> Tengo un asesor BT-México
+                                             &nbsp;
+                                             <input type="checkbox" id="toggle-event" name="custom-switch-checkbox"
+                                                class="custom-switch-input">
+                                             <span class="custom-switch-indicator"></span>
+                                          </label>
+                                          <br>
+                                          <br>
+                                          <div class="form-group row" id="asesor">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Asesor</label>
+                                                <div class="col-md-12 bug">
+                                                   <select class="form-control select2 w-100" name="txtAsesor"
+                                                      id="txtAsesor">
+                                                      <option value="null" selected="true">Seleccione el nombre de su asesor
+                                                      </option>
+                                                      {% for key, value in asesor %}
+                                                      <option value={{value.id}}>{{value.nombres}}
+                                                         {{value.apellido_paterno}}</option>
+                                                      {% endfor %}
+
+                                                   </select>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <br>
+                                          <h3>Nacionalidad</h3>
+                                          <br>
+
+
+                                          <!--Entrada nacionalidad -->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Nacionalidad</label>
+                                                <div class="col-md-12 ">
+                                                   <select class="form-control select2 w-100" name="txtnacionalidad"
+                                                      id="txtnacionalidad">
+                                                      <option value="null" selected="true">Seleccione su nacionalidad
+                                                      {% for key, value in nacionalidad %}
+                                                      <option value={{value.id}}>{{value.nacionalidad}}</option>
+                                                      {% endfor %}
+
+                                                   </select>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <!--Entrada curp -->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">CURP</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtCurp" id="txtCurp">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <br>
+                                          <h3>Información fiscal</h3>
+                                          <!--Entrada rfc -->
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">RFC</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtRfc" id="txtRfc">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                             <!--Entrada homoclave -->
+                                             <div class="col-md-3">
+                                                <label class="col-md-12 col-form-label">Homoclave</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtHomoclave"
+                                                      id="txtHomoclave">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>                           
+                                          <a  style="color: blanchedalmond;" class="btn btn-primary" id="btnstep1">Siguiente</a>
+                                       </div>
+                                    </div>
+                                    <!--Paso 2 domicilio -->
+                                    <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+                                       <h3>Domicilio</h3>
+                                       <div class="col-lg-9 col-xl-9 col-md-12 col-sm-9">
+
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Calle</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtCalle"
+                                                      id="txtCalle">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+
+                                             <div class="col-md-3">
+                                                <label class="col-md-12 col-form-label">No. exterior</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtNoExterior"
+                                                      id="txtNoExterior">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                <label class="col-md-12 col-form-label">No. interior (Opcional)</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtNoInterior"
+                                                      id="txtNoInterior">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Codigo Postal</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtCodigoPostal"
+                                                      id="txtCodigoPostal">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Colonia</label>
+                                                <div class="col-md-12 bug">
+                                                   <select class="form-control" name="txtColonia" id="txtColonia">
+                                                      <option value="0">Seleccione una colonia</option>
+                                                   </select>
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Acaldía/Municipio</label>
+                                                <div class="col-md-12">
+                                                   <input class="form-control" type="text" name="txtMunicipio"
+                                                      id="txtMunicipio" readonly>
+                                                </div>
+                                             </div>
+
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Estado</label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="text" name="txtEstado"
+                                                      id="txtEstado" readonly>
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <a class="btn btn-primary" id="anterior1" href="#step-1">anterior</a>
+                                          
+                                          <a  style="color: blanchedalmond;" class="btn btn-primary" id="btnstep2">Siguiente</a>
+
+
+                                       </div>
+                                    </div>
+                                    <!--Paso 3 actividad economica-->
+                                    <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+                                       <h3>Actividad económica</h3>
+                                       <div class="col-lg-9 col-xl-9 col-md-12 col-sm-9">
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label">Sueldo o monto anual (netos) de
+                                                   los ingresos que recibe: </label>
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="number" name="txtSueldo"
+                                                      id="txtSueldo">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label>¿Cuál es su actividad principal?</label>
+                                                <select class="form-control  w-100" id="txtActividad" name="txtActividad">
+                                                   <option value="" selected="selected">Seleccione una opción</option>
+                                                   {% for key, value in actividad %}
+                                                   <option value="{{value.id}}">{{key+1}}.- {{value.actividad}}</option>
+                                                   {% endfor %}
+                                                </select>
+                                             </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label>Seleccione su fuente de ingreso</label>
+                                                <select class="form-control w-100"  id="txtFuente_ingresos" name="txtFuente_ingresos">
+                                                   <option value="" selected="selected">Seleccione una opción</option>
+                                                   {% for key, value in ingresos %}
+                                                   <option value="{{value.id}}">{{key+1}}.- {{value.fuente_ingresos}}</option>
+                                                   {% endfor %}
+                                                </select>
+                                             </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                             <div class="col-md-6">
+                                                <label>Número de depósitos que planea efectuar en el mes </label>
+                                                <select class="form-control w-100"  id="txtDepositos" name="txtDepositos" >
+                                                   <option selected="selected">Seleccione una opción</option>
+                                                   <option value="1">1</option>
+                                                   <option value="2">2</option>
+                                                   <option value="3">3</option>
+                                                   <option value="4">4</option>
+                                                   <option value="5">5</option>
+                                                   <option value="6">6</option>
+                                                   <option value="7">7</option>
+                                                   <option value="8">8</option>
+                                                   <option value="9">9</option>
+                                                   <option value="10">10</option>
+                                                </select>
+                                             </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                             <div class="col-md-6">  
+                                                <label class="col-md-12 col-form-label">Monto de cada depósito en pesos M.N </label> 
+                                                <div class="col-md-12 bug">
+                                                   <input class="form-control" type="number" name="txtMonto" id="txtMonto">
+                                                   <i class="fa fa-times-circle"></i>
+                                                   <i class="fa fa-check-circle"></i>
+                                                   <small>El campo no puede ir vacio</small>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <a class="btn btn-primary" id="anterior2" href="#step-2">anterior</a>
+                                          <a  style="color: blanchedalmond;" class="btn btn-primary" id="btnstep3">Siguiente</a>
+                                        
+                                       </div>
+                                    </div>
+                                    <!--Paso 4 Documentos-->
+                                    <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4" style="height: 1200px;">
+                                       <h3> Documentos</h3>
+                                       <div class="col-lg-9 col-xl-9 col-md-12 col-sm-9">
+                                          <div class="alert alert-light alert-has-icon">
+                                             <div class="alert-icon"><i class="ion ion-ios-bell"></i></div>
+                                             <div class="alert-body">
+                                                <div class="alert-title">Te recomendamos que cada archivo sea menor
+                                                   a 3 MB. </div>
+                                             </div>
+                                          </div>
+                                          <br>
+                                          <!--foto -->
+                                          <h3>Selfie</h3>
+                                          <h4>Tómate una foto de tu rostro </h4>
+                                          <br>
+                                          <div id="foto_tomada" class="col-md-6" style="color: #155724; 
+                                          background-color: #d4edda;
+                                          border-color: #c3e6cb;
+                                          font-size: 15px;
+                                          text-align: center;
+                                          display: none;
+                                          border-radius: 5px;
+                                          margin-bottom: 4px;
+                                          margin-top: -5px;
+                                          padding: 5px;"
+                                            >
+                                              Foto capturada exitosamente.
+                                          </div>
+                                          <label class="custom-switch"> <h5>Activar cámara</h5>
+                                             &nbsp;
+
+                                           
+                                             <input type="checkbox" id="act_camara-event" name="custom-switch-checkbox" class="custom-switch-input">
+                                             <span class="custom-switch-indicator"></span>
+                                          </label>
+                                          <br>
+                                           <br>
+                                             <div class="form-group row" id="tomar_foto">
+                                                
+                                                   <div class="col-md-6">
+                                                      <video id="video" playsinline autoplay></video>
+                                                      <br>
+                                                      <br>
+                                                      <button type="button" id="snap">Tomar foto</button>
+                                                   </div>
+
+                                                    <canvas id="canvas"></canvas>
+                                                   
+                                             </div>
+                                         
+                                          <!-- Identificación oficial-->
+                                          <div class="form-group row">
+                                             <div class="col-md-12">
+                                                <h3>Identificación oficial</h3>
+                                                <h5>Asegurate de que la identificación se encuentre vigente. <strong>En
+                                                      formato PNG o PDF</strong></h5>
+                                                <br>
+                                                <div class="col-md-6">
+                                                   <div class="form-group files color  mb-lg-0">
+                                                      <input  value="1" type="file" class="form-control1" name="image-identificacion[]" id="image-identificacion[]"  multiple="">
+                                                      <input type="hidden" id="identificacion" class="identificacion">
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+
+                                          <!-- Comprobante de dimicilio-->
+                                          <div class="form-group row">
+                                             <div class="col-md-12">
+                                                <h3>Comprobante de domicilio</h3>
+                                                <h5>Asegurate de que el comprobante no sea mayor a 3 meses. <strong>En
+                                                      formato PNG o PDF</strong></h5>
+                                                <div class="col-md-6">
+                                                   <div class="form-group files color  mb-lg-0">
+                                                      <input type="file" 
+                                                         class="form-control1" name="image-comprobante[]" id="image-comprobante[]" multiple="">
+                                                         <input type="hidden" id="comprobante" class="comprobante">
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <a id="anterior3" class="btn btn-primary" href="#step-3">anterior</a>
+                                          <button class="btn btn-primary" id="btnstep4" type="button">Siguiente</button>
+                                       </div>
+
+                                       <div>
+
+                                       </div>
+                                    </div>
+                                    <div id="step-5" class="tab-pane" role="tabpanel" aria-labelledby="step-5">
+                                             <!--Paso 1 Datos personales-->
+                                       <h3>Datos personales</h3>
+                                       <br>
+                                       
+                                       <div class="form-group row ">
+                                          <div class="col-md-6">
+                                             <label class="col-md-6  col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Nombre(s): </h5></label>
+                                             <div class="col-md-6">
+                                              <label class="col-md-6 col-form-label"><h5 id="Mnombre"   style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Apellido paterno: </h5></label>
+                                             <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 id="Mapellido_p" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                       <div class="form-group row ">
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Apellido materno:</h5></label>
+                                             <div class="col-md-6">
+                                                <label class="col-md-6 col-form-label"><h5 id="Mapellido_m" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Fecha de nacimiento: </h5></label>
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label"><h5 id="Mfecha_nac" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="form-group row ">
+                                         
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Género:</h5></label>
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label"><h5 id="Mgenero" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                         
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">País de nacimiento: </h5></label>
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label"><h5 id="Mpais" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="form-group row ">
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Estado de nacimiento:</h5></label>
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label"><h5 id="Mestado" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                             <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Teléfono </h5></label>
+                                             <div class="col-md-6">
+                                                <label class="col-md-12 col-form-label"><h5 id="Mtelefono" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                             </div>
+                                          </div>
+                                       </div>
+
+                                           <!--Paso 2 Domicilio -->
+                                      
+                                           <h3>Domicilio</h3>
+                                           <br>
+                                           <div class="form-group row ">
+                                              <div class="col-md-6">
+                                                 <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Calle: </h5></label>
+                                                 <div class="col-md-6">
+                                                    <label class="col-md-12 col-form-label"><h5 id="Mcalle" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                 </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                 <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">No. Exterior: </h5></label>
+                                                 <div class="col-md-6">
+                                                    <label class="col-md-6 col-form-label"><h5 id="MnoExterior" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                 </div>
+                                              </div>
+                                           </div>
+    
+                                           <div class="form-group row ">
+                                              <div class="col-md-6">
+                                                 <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">No. Interior:</h5></label>
+                                                 <div class="col-md-6">
+                                                    <label class="col-md-6 col-form-label"><h5 id="MnoInterior" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                 </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                 <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Código postal: </h5></label>
+                                                 <div class="col-md-6">
+                                                    <label class="col-md-6 col-form-label"><h5 id="McodigoPostal" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                           <div class="form-group row ">
+                                             <div class="col-md-6">
+                                                <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Colonia:</h5></label>
+                                                <div class="col-md-6">
+                                                   <label class="col-md-12 col-form-label"><h5 id="Mcolonia" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                </div>
+                                             </div>
+                                             <div class="col-md-6">
+                                                <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Municipio: </h5></label>
+                                                <div class="col-md-6">
+                                                   <label class="col-md-12 col-form-label"><h5 id="Mmunicipio"  style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="form-group row ">
+                                             <div class="col-md-6">
+                                                <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Estado:</h5></label>
+                                                <div class="col-md-6">
+                                                   <label class="col-md-12 col-form-label"><h5 id="Mestadod" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                </div>
+                                             </div>
+                                          </div>
+                                             <!--Paso 3 Actividadd  economica -->
+                                      
+                                             <h3>Actividad económica</h3>
+                                             <br>
+                                             <div class="form-group row ">
+                                                <div class="col-md-6">
+                                                   <label class="col-md-12 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Sueldo o monto anual (netos) de
+                                                      los ingresos que recibe: </h5></label>
+                                                   <div class="col-md-6">
+                                                      <label class="col-md-6 col-form-label"><h5 id="Msueldo" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                   </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                   <label class="col-md-6 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Actividad principal: </h5></label>
+                                                   <div class="col-md-6">
+                                                      <label class="col-md-12 col-form-label"><h5 id="Mact_principal" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="form-group row ">
+                                                <div class="col-md-6">
+                                                   <label class="col-md-12 col-form-label"><h5 style="font-weight: ligther; font-size: 15px;">Fuente de ingresos: </h5></label>
+                                                   <div class="col-md-12">
+                                                      <label class="col-md-12 col-form-label"><h5 id="Mfuente" style="font-weight: bolder; font-size: 17px;"></h5></label>
+                                                   </div>
+                                                </div>                              
+                                             </div>
+                                       
+                                          <a id="anterior4" class="btn btn-primary" href="#step-4">anterior</a>
+                                          <button class="btn btn-primary" id="btnstep5" type="submit">Guardar</button>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% include 'includes/footer2.html' %}
+      </div>
+   </div>
+   {% include 'includes/footer.html' %}
+<!--registro js-->
+<script src="{{ pathSite }}includes/js/registro.js"></script>
+   <script>
+
+      /* **********************funcion para mostrar el input en caso de tener Asesor Step 1********************************/
+      $(document).ready(function () {
+         $("#asesor").hide();
+         $('#toggle-event').on('change', function () {
+            if (this.checked) {
+               $("#asesor").show();
+            } else {
+               $("#asesor").hide();
+            }
+         })
+      });
+
+
+      /* **********************ajax para mostrar los estados en el Step 1********************************/
+      var urrl = "https://api-sepomex.hckdrk.mx/query/get_estados";
+      $.ajax({
+         url: urrl,
+         success: function (respuesta2) {
+            // console.log(respuesta2);
+            $.each(respuesta2["response"].estado, function (key, estado) {
+               $("#txtEstadoNac").append('<option value=' + estado + '>' + estado + '</option>');
+            });
+
+         },
+         error: function () {
+            console.log("No se ha podido obtener la información");
+         }
+      });
+
+      /* **********************jquery para conocer colonia y municipio dado un codigo postal********************************/
+      $("#txtCodigoPostal").keyup(function (event) {
+         var codigopostal = $("#txtCodigoPostal").val();
+
+         //console.log( $("#txtCodigoPostal").val());
+         // console.log("longitud",codigopostal.length);
+         if (codigopostal.length == 5) {
+            codigoPostal(codigopostal);
+            $('option', '#txtColonia').remove();
+         } else {
+            //codigoPostal(codigopostal,4);
+            $('option', '#txtColonia').remove();
+         }
+      });
+
+      /*******funcion para conocer colonia y municipio dado un codigo postal******/
+      function codigoPostal(cp) {
+         var endpoint_sepomex = "https://api-sepomex.hckdrk.mx/query/";
+         var method_sepomex = 'info_cp/';
+         var variable_string = '?type=simplified';
+         var url12 = endpoint_sepomex + method_sepomex + cp + variable_string;
+         //console.log(url12);
+         // if(num == 5){
+         $.ajax({
+            url: url12,
+            success: function (respuesta) {
+               // console.log(respuesta);
+               //console.log(respuesta["response"].pais);
+
+               $("#txtEstado").val(respuesta["response"].estado);
+               $("#txtMunicipio").val(respuesta["response"].municipio);
+               $.each(respuesta["response"].asentamiento, function (key, colonia) {
+                  $("#txtColonia").append('<option  value=' + colonia + '>' + colonia + '</option>');
+               });
+            },
+            error: function () {
+               console.log("No se ha podido obtener la información");
+            }
+         });
+      }
+
+      /**************Codigo para conseguir la foto****************/
+     
+         $("#tomar_foto").hide();
+         $('#act_camara-event').on('change', function () {
+            if (this.checked) {
+               $("#tomar_foto").show();
+            } else {
+               
+               $("#tomar_foto").hide();
+            }
+         })
+   
+      
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const snap = document.getElementById("snap");
+      const errorMsgElement = document.querySelector('span#errorMsg');
+
+ $("#canvas").hide();
+      const constraints = {
+         audio: false,
+         video: {
+
+            width: 150, height: 150
+         }
+      };
+
+      // Access webcam
+      async function init() {
+         try {
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            handleSuccess(stream);
+         } catch (e) {
+            errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+         }
+      }
+
+      // Success
+      function handleSuccess(stream) {
+         window.stream = stream;
+         video.srcObject = stream;
+      }
+
+               
+      
+      $("#act_camara-event").on("click",function(){
+         setTimeout(init(),3000);
+
+      })
+      var context = canvas.getContext('2d');
+
+      snap.addEventListener("click", function () {
+          // Draw image
+      if(snap.click){
+         video.pause();
+         context.drawImage(video, 0, 0, 150, 150);
+         const dataURI = canvas.toDataURL();
+
+         var html = $.ajax({
+            method: "POST",
+            url: "includes/ajax/guardar_foto.php", 
+            async:false,
+            data: {photo: encodeURIComponent(dataURI)}
+            }).responseText;
+    
+            $('#foto').val(html);
+          
+           $("#foto_tomada").show();
+           $('#foto_tomada').fadeIn();     
+         setTimeout(function() {
+             $("#foto_tomada").fadeOut();           
+             },2000);
+
+      }else{
+         document.getElementById('foto_tomada').style.display = 'none';
+
+      }
+        
+      });
+
+   </script>

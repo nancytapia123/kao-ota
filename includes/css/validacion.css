@@ -1,0 +1,42 @@
+/*Oculta los iconos*/
+.bug i {
+	visibility: hidden;
+	position: absolute;
+	top: 12px;
+	right: 20px;
+}
+
+.form-control.success  {
+	border-color: #2ecc71;
+}
+
+.form-control.error {
+	border-color: #e74c3c;
+	
+}
+
+
+.bug.error2 i.fa-times-circle {
+	color: #e74c3c;
+	visibility: visible;
+}
+
+.bug.success2 i.fa-check-circle {
+	color: #2ecc71;
+	visibility: visible;
+}
+
+
+
+.bug small {
+	color: #e74c3c;
+	position: absolute;
+	bottom: -20;
+	visibility: hidden;
+}
+
+.bug.error2 small {
+	visibility: visible;
+}
+
+

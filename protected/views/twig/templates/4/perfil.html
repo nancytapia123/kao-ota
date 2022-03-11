@@ -1,0 +1,323 @@
+{% include 'includes/header.html' %}
+
+<body class="app">
+  <div id="spinner"></div>
+  <div id="app" class="page">
+    <div class="main-wrapper page-main">
+      {% include 'includes/header2.html' %} {% include 'includes/nav.html' %}
+      <div class="app-content">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card card-success text-black">
+              <div class="card-body text-center">
+                <div class="text-center">
+                  <div class="userprofile social">
+                    <div class="userpic">
+                        
+                        {% set idReg = usuario.id %}
+                        {% set cont = id_imagenperfil[idReg] %}
+                        {% if cont > 0 %}   
+                        {% for key,  value in id_imagenperfil[usuario.id] %}
+                         <img src="{{ pathSite }}includes{{ includes }}/images/users/{{value.image}}" alt="" class="userpicimg">
+                       {% endfor %}
+                        {%else%}
+                        <img src="{{imagenLogo}}" alt=""  class="userpicimg">  
+                         {% endif %}
+                          <div class="pull-center">
+                             <button type="button" data-toggle="modal" data-target="#imagen-v" class="btn btn-labeled btn-info" title="Editar">
+                                <span><i class="fa fa-camera"></i></span>
+                             </button>
+                          </div>
+                    </div>
+                    <br>
+                    <br>
+                    <h3>{{usuario.nombres}} {{usuario.apellido_paterno}}</h3>
+                    <p>{{usuario.rol}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-xl-4 col-md-12 col-sm-12">
+            <div class="card card-success">
+              <div class="card-header">
+                <input
+                  type="hidden"
+                  id="iduser"
+                  name="iduser"
+                  value="{{usuario.id}}"
+                />
+                <div class="pull-right">
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#EditarPerfil"
+                    style="width: 80px"
+                    class="btn btn-success btn-rounded w-md waves-effect waves-light m-b-5">
+                    <span> <i class="fa fa-pencil"></i>Editar</span>
+                  </button>
+                </div>
+                <h4>Datos Personales</h4>
+              </div>
+              <div class="card-body">
+                <p><b>Nombre :</b> {{usuario.nombres}}</p>
+                <p><b>Apellido paterno :</b> {{usuario.apellido_paterno}}</p>
+                <p><b>Apellido materno :</b> {{usuario.apellido_materno}}</p>
+                <p><b>Género :</b> {{usuario.genero}}</p>
+                <p><b>Correo :</b> {{usuario.email}}</p>
+                <p><b>Teléfono :</b> {{usuario.telefono}}</p>
+                <p><b>Nacionalidad :</b> {{usuario.nacionalidad}}</p>
+                <p><b>País :</b> {{usuario.pais}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
+            <div class="card card-success">
+              <div class="card-body p-4">
+                <div class="row d-flex">
+                  <div class="col-lg-6"></div>
+                </div>
+              </div>
+              <div class="card-body border-top p-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'includes/footer2.html' %}
+    </div>
+  </div>
+  {% include 'includes/footer.html' %}
+  
+</body>
+  <!-- Modal para editar perfil-->
+  <div
+    id="EditarPerfil"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+    class="modal fade"
+  >
+    <div class="modal-dialog" role="document">
+      <form
+        action=""
+        data-parsley-validate=""
+        novalidate=""
+        class="form-horizontal"
+        method="POST"
+      >
+        <input
+          type="hidden"
+          name="idEditar"
+          id="idEditar"
+          value="{{usuario.id}}"
+        />
+        <div class="modal-content">
+          <div
+            class="modal-header"
+            style="border-top-left-radius: 5px; border-top-right-radius: 5px"
+          >
+            <h4 id="myModalLabel" class="modal-title text-center">
+              Datos personales
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="col-md-2 form-control-label">Nombres:</label>
+              <div class="col-md-10">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fa fa-user"></i>
+                    </span>
+                  </div>
+                  <input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre" class="form-control" value="{{usuario.nombres}}" aria-describedby="basic-addon1" required  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 form-control-label">Apellido paterno:</label>
+                <div class="col-md-10">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </span>
+                    </div>
+                    <input type="text" name="txtApellido_paterno" id="txtApellido_paterno" placeholder="Apellido paterno" class="form-control" value="{{usuario.apellido_paterno}}" aria-describedby="basic-addon1" required  />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-2 form-control-label">Apellido materno:</label>
+                <div class="col-md-10">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                      </span>
+                    </div>
+                    <input type="text" name="txtApellido_materno" id="txtApellido_materno" placeholder="Apellido materno" class="form-control" value="{{usuario.apellido_materno}}" aria-describedby="basic-addon1" required  />
+                  </div>
+                </div>
+              </div>
+
+            <div class="form-group">
+              <label class="col-md-2 form-control-label">Género:</label>
+              <div class="col-md-10">
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa fa-group"></i>
+                  </span>
+                  <select class="form-control" name="txtGenero">
+                    <option value="0" disabled>Selecciona un género</option>
+                    {% for key, v in genero %}
+                    {% if usuario.genero_id == v.id%}
+                    <option value="{{v.id}}" selected>
+                      {{key+1}}.-{{v.genero}}
+                    </option>
+                    {% else %}
+                    <option value="{{v.id}}">{{key+1}}.-{{v.genero}}</option>
+                    {%endif%} {% endfor %}</select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-2 form-control-label">Correo:</label>
+              <div class="col-md-10">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">@</span>
+                  </div>
+                  <input
+                    type="email"
+                    name="txtCorreo"
+                    id="txtCorreo"
+                    placeholder="Correo"
+                    class="form-control"
+                    value="{{usuario.email}}"
+                    aria-describedby="basic-addon1"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-2 form-control-label">Teléfono:</label>
+              <div class="col-md-10">
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa fa-phone"></i>
+                  </span>
+                  <input type="text" name="txtTelefono" id="txtTelefono" placeholder="telefono" class="form-control" value="{{usuario.telefono}}" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 form-control-label">Nacionalidad:</label>
+            <div class="col-md-10">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i  class="ion-earth"></i>
+                </span>
+                <select class="form-control" name="txtNacionalidad">
+                  <option value="0" disabled>Selecciona una nacionalidad</option>
+                  {% for key, v in nacionalidad %} 
+                  {% if usuario.nacionalidad_id == v.id%}
+                  <option value="{{v.id}}" selected>
+                    {{key+1}}.-{{v.nacionalidad}}
+                  </option>
+                  {% else %}
+                  <option value="{{v.id}}">{{key+1}}.-{{v.nacionalidad}}</option>
+                  {%endif%} {% endfor %}</select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-2 form-control-label">País:</label>
+            <div class="col-md-10">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="ion-earth"></i>
+                </span>
+                <select class="form-control" name="txtPais">
+                  <option value="0" disabled>Selecciona un país</option>
+                  {% for key, v in pais %}
+                   {% if usuarios.pais_nac == v.id%}
+                  <option value="{{v.id}}" selected>
+                    {{key+1}}.-{{v.pais}}
+                  </option>
+                  {% else %}
+                  <option value="{{v.id}}">{{key+1}}.-{{v.pais}}</option>
+                  {%endif%} {% endfor %}</select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              class="cmdadduser"
+              id="cmdadduser"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="imagen-v" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog">
+       <form action="{{pathSite}}perfil" data-parsley-validate="" id="frm2" method="POST" enctype="multipart/form-data" novalidate="" class="form-horizontal">
+        <input type="hidden" name="path" id="path" value="{{pathSite}}">
+       <input type="hidden" name="idEditarFoto" id="idEditarFoto" value="{{usuario.id}}">
+          <div class="modal-content" >
+             <div class="modal-header" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                <h4 id="myModalLabel" class="modal-title text-center">Cambiar foto de perfil</h4>
+                <button   type="button"  class="close"  data-dismiss="modal"  aria-label="Close" >
+                <span aria-hidden="true">&times;</span>
+                </button>
+               
+             </div>
+             <div class="modal-body">
+              
+                         <div class="form-group">
+                             <label class="col-md-2 control-label">Foto:
+                             </label>
+                             <div class="col-md-10">
+                                 <input type="file" data-classbutton="btn btn-default" data-classinput="form-control inline"  accept="image/png" data-validation-allowing="jpg, png" class="form-control img-responsive" name="img-foto2" id="img-foto2">
+                                 <br>
+                                 <img src="{{imagenLogo}}" class="userpicimg previsualizar2" width="100px">
+                             </div>
+                         </div>
+                     
+             
+             </div>
+             <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Cancelar</button>
+                <button type="submit" name="boton" id="boton" class="btn btn-primary">Guardar</button>
+             </div>
+          </form>
+ 
+       </div>
+    </div>
+
+	<script src="{{ pathSite }}includes/js/perfil.js"></script>

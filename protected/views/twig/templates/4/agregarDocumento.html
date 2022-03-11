@@ -1,0 +1,79 @@
+{% include 'includes/header.html' %}
+<body class="app ">
+    <div id="spinner"></div>
+    <div id="app" class="page">
+        <div class="main-wrapper page-main" >
+            {% include 'includes/header2.html' %}
+            {% include 'includes/nav.html' %}
+            <div class="app-content">
+                <div class="section">
+                    {% include 'includes/breadcrumbs.html' %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <form id="frm2" name="frm2" action="{{pathSite}}agregardocumento" method="post">
+                                    <input type="hidden" name="Dominio" id="Dominio" value="rol">
+                                    <input type="hidden" name="idReg" id="idReg" value="">
+                                    <input type="hidden" name="Action" id="Action" value="">
+                                    <input type="hidden" name="path" id="path" value="{{ pathSite }}">
+
+                                <div class="card-header">
+                                    <div class="pull-left">
+                                        <h4>Agregar Documentos</h4>
+                                    </div>
+
+                                    <div class="pull-right">
+
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="btn-group float-right mt-3">
+                                        <button class="btn btn-primary m-b-5 m-t-5" type="submit">
+                                            Agregar
+                                        </button>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                          <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <table id="example" class="table table-striped table-bordered border-t0 w-100 text-nowrap dataTable no-footer" role="grid" aria-describedby="example_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Id: activar para ordenar la columna descendente" style="width: 147.333px;">Id</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Rol: activar para ordenar la columna ascendente" style="width: 458px;">Nombre</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Accion: activar para ordenar la columna ascendente" style="width: 706px;">Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for key, value in datos1 %}
+                                                     <tr>
+                                                            <td>{{value.id}}</td>
+                                                            <td>{{value.nombres}}</td>
+                                                        <td>
+                                                            <button class="btn btn-round btn-success" onclick="clickBtn({{value.id}}, 'add', 'agregardoc', 'frm2')" title="Permisos" alt="Permisos">
+                                                                <i class="glyph-icon fe fe-book-open"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                    </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            {% include 'includes/footer2.html' %}
+        </div>
+    </div>
+   {% include 'includes/footer.html' %}
+   </body>

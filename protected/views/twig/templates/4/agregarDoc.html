@@ -1,0 +1,74 @@
+{% include 'includes/header.html' %}
+<body class="app ">
+    <div id="spinner"></div>
+    <div id="app" class="page">
+        <div class="main-wrapper page-main" >
+            {% include 'includes/header2.html' %}
+            {% include 'includes/nav.html' %}
+            <div class="app-content">
+                <div class="section">
+                    {% include 'includes/breadcrumbs.html' %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Agregar Documentos</h4>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+            
+                                        <form id="frm3" name="frm3" action="agregardocumento" method="post" enctype="multipart/form-data">
+
+                                            <div class="example-box-wrapper">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Tipo de documento</label>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control" id="txttipo_documento_id" name="txttipo_documento_id">
+                                                            
+                                                            {% for key, value in tipodocumento %}
+                                                            <option value="{{value.id}}"> {{value.tipo_documento}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                        </div>
+            
+                                            <div class="example-box-wrapper">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label">Subir Documento</label>
+                                                <div class="form-group">
+                                                    <div class="col-sm-6">
+                                                        <input type="file" class="form-control" id="txtFile" name="txtFile">
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                </div>
+
+                                                
+    
+                                        <div class="form-group">
+                                          <br>
+                                          <div class="col-lg-offset-2 col-lg-10">
+                                            <button type="submit" class="btn btn-sm btn-info" name="cmdRegresar" id="cmdRegresar" data-action="catalogo/{{dominio}}" value="1">
+                                              <i class="glyph-icon icon-angle-double-left"></i>
+                                              Regresar
+                                            </button>
+                                            <button type="submit" class="btn btn-sm btn-success" name="cmdGuardar2" value="1">
+                                              <i class="glyph-icon icon-save"></i>
+                                              Guardar</button>
+                                            </div>
+                                          </div>
+            
+                                            </form>
+            
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'includes/footer2.html' %}
+        </div>
+    </div>
+   {% include 'includes/footer.html' %}
